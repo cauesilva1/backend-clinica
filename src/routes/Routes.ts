@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import { criarAgCliente, buscarAgCliente, buscarAgenda } from '../controllers/Client';
+import { CriarCliente, buscarCliente, buscarAgenda, RealizarPagamento } from '../controllers/Client';
 import { gerarProfissionais } from '../controllers/Profissional';
 import { gerarProcedimentos } from '../controllers/procedimentos';
 import { gerarAgendas } from '../controllers/gerarAgenda';
@@ -7,11 +7,14 @@ export const router = express.Router();
 
 
 
-router.get('/user', buscarAgCliente);
+router.get('/user', buscarCliente);
 
 router.get('/AgendaClient', buscarAgenda);
 
-router.post('/createUser', criarAgCliente);
+// router.post('/createUser', CriarCliente);
+
+
+router.post('/RealizarPagamento', RealizarPagamento);
 
 
 // router.post('/gerarProfissionais', gerarProfissionais);

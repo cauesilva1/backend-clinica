@@ -30,9 +30,8 @@ model AgProfissional {
   nome_profissional String
   cod_especialidade Int
   ag_agenda         AgAgenda[]
-  Ve_Itens_da_Venda VeItensDaVenda[]
+  Ve_Itens_da_Venda VeVendas[]
 }
-
 
 model AgProcedimentos {
   id_procedimento Int            @id @default(autoincrement())
@@ -40,17 +39,19 @@ model AgProcedimentos {
   custo_total     Float
   cod_especialidade Int
   ag_agenda       AgAgenda[]
-  Ve_Itens_da_Venda VeItensDaVenda[]
+  Ve_Itens_da_Venda VeVendas[]
 }
 
 model AgAgenda {
   id_agenda      Int            @id @default(autoincrement())
   cpf_cliente    String
+
   id_procedimento Int
   id_profissional Int
+
   data_abertura  DateTime
   data_fechamento  DateTime?
-  Ve_Itens_da_Venda VeItensDaVenda[]
+
   AgCliente      AgCliente     @relation(fields: [cpf_cliente], references: [cpf_cliente])
   AgProcedimentos AgProcedimentos @relation(fields: [id_procedimento], references: [id_procedimento])
   AgProfissional AgProfissional @relation(fields: [id_profissional], references: [id_profissional])
@@ -59,27 +60,22 @@ model AgAgenda {
 model VeVendas {
   Id_Vendas  Int             @id @default(autoincrement())
   CPF_Cliente String
-  data       DateTime
-  Ve_Itens_da_Venda VeItensDaVenda[]
-  AgCliente  AgCliente       @relation(fields: [CPF_Cliente], references: [cpf_cliente])
-}
+  status_pagamento String    @default("pendente")
+  forma_De_pagamento String
 
-model VeItensDaVenda {
-  Id_Vendas       Int
-  QTD_Itens       Int
   Id_Procedimento Int
   Id_Profissional Int
-  cod_espec       Int
-  Forma_Pagamento Int
+
   valor           Float
   id_agenda       Int
 
-  VeVendas        VeVendas        @relation(fields: [Id_Vendas], references: [Id_Vendas])
+
+  AgCliente  AgCliente       @relation(fields: [CPF_Cliente], references: [cpf_cliente])
   AgProcedimentos AgProcedimentos @relation(fields: [Id_Procedimento], references: [id_procedimento])
   AgProfissional  AgProfissional  @relation(fields: [Id_Profissional], references: [id_profissional])
-  AgAgenda        AgAgenda        @relation(fields: [id_agenda], references: [id_agenda])
-
-  @@id([Id_Vendas, Id_Procedimento, Id_Profissional, id_agenda])
 }
+
+
+
 
 

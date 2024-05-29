@@ -1,8 +1,9 @@
 import { PrismaClient } from "@prisma/client";
 import { Request, Response } from "express";
+import { buscaCliente, BuscarAgenda, RealizarPagamentos } from "../services/cliente";
 const prisma = new PrismaClient();
 
-export async function criarAgCliente(req: Request, res: Response) {
+export async function CriarCliente(req: Request, res: Response) {
   try {
     const {
       cpf_cliente,
@@ -35,7 +36,7 @@ export async function criarAgCliente(req: Request, res: Response) {
     res
       .status(200)
       .json({ message: "Usuário criado com sucesso", user: clienteCriado });
-    res
+    res;
   } catch (error) {
     console.error("Erro ao criar cliente:", error);
   } finally {
@@ -43,55 +44,38 @@ export async function criarAgCliente(req: Request, res: Response) {
   }
 }
 
-export async function buscarAgCliente(req: Request, res: Response) {
-  try {
-    const { cpf_cliente } = req.body;
+export async function buscarCliente(req: Request, res: Response) {
+    const cliente = await buscaCliente(req.body.cpf_cliente);
 
-    const BuscarCliente = await prisma.agCliente.findUnique({
-      where: {
-        cpf_cliente,
-      },
-    });
-
-    if (!BuscarCliente) {
-      return res.status(404).json({ message: "Cliente não encontrado" });
-    }
-
-    console.log("Cliente:", BuscarCliente);
+    console.log("Cliente:", cliente);
 
     res
       .status(200)
-      .json({ message: "Usuário encontrado com sucesso", user: BuscarCliente });
-  } catch (error) {
-    console.error("Erro ao buscar cliente:", error);
-  } finally {
-    await prisma.$disconnect(); // Fechar a conexão com o banco de dados
-  }
-}
+      .json({
+        Cliente: cliente,
+      });
 
+} 
+  
 export async function buscarAgenda(req: Request, res: Response) {
-  try {
-    const { cpf_cliente } = req.body;
 
-    const dataBusca = new Date();
-
-    const BuscarAgenda = await prisma.agAgenda.findMany({
-      where: {
-        cpf_cliente,
-        data_abertura: {
-          lte: dataBusca,
-        },
-      },
-    }); 
-
-
-
-
-
-    console.log("Agenda:", BuscarAgenda);
+    const Agenda = await BuscarAgenda(req.body.cpf_cliente);
 
     res
       .status(200)
-      .json({ message: "Agenda encontrada com sucesso", agenda: BuscarAgenda });
-  } catch (error) {}
+      .json({agenda: Agenda });
+
 }
+
+export async function RealizarPagamento(req: Request, res: Response) {
+  const { formaPagamento, cpfCliente } = req.body;
+
+
+  const VendaRealizada = await RealizarPagamentos(formaPagamento, cpfCliente);
+
+  console.log("VendaRealizada:", VendaRealizada);
+
+  res.status(200).json(VendaRealizada);
+
+}
+

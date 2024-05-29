@@ -15,11 +15,13 @@ export async function gerarAgendas() {
       });
   
       console.log("Agendas criadas:", resultado);
+
+
     } catch (error) {
       console.error("Erro ao criar agendas:", error);
     } finally {
       await prisma.$disconnect();
     }
-  }
+}
 
   gerarAgendas();

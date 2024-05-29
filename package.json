@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "nodemon src/index.ts",
-    "build": "prisma generate"
+    "build": "prisma generate && tsc"
   },
   "devDependencies": {
     "@prisma/client": "^5.14.0",

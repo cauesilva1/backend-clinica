@@ -65,9 +65,11 @@ O servidor estará disponível em `http://localhost:3000`.
 │   │   ├── Client.ts
 │   │   ├── Profissional.ts
 │   │   ├── Procedimento.ts
-│   │   └── Agenda.ts
+│   │   └── gerarAgenda.ts
 │   ├── routes
 │   │   └── router.ts
+    ├── services
+│   │   └── cliente.ts
 │   ├── index.ts
 │   └── utils
 ├── .env

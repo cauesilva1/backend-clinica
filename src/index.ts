@@ -12,10 +12,6 @@ app.use(
   })
 );
 
-app.get("/", (req, res) => {
-  res.send("Express on Vercel");
-});
-
 app.use(express.json());
 app.use(router)
 app.listen(port, () => {

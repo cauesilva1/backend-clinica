@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "nodemon src/index.ts",
-    "build": "prisma generate && tsc"
+    "build": "prisma generate && tsc",
+    "vercel-build": "npx prisma migrate deploy"
   },
   "devDependencies": {
     "@prisma/client": "^5.14.0",

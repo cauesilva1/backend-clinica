@@ -144,9 +144,11 @@ export async function RealizarPagamentos(formaPagamento: string, cpfCliente: str
         //     valor : procedimento?.custo_total ?? 0, // Se custo_total for undefined, atribui 0
         //     id_agenda: consulta?.id_agenda ?? 0, // Se consulta for undefined, atribui 0
         //   }
+
+    
+        // ** adicionar data-fechamento **
     
         
-    
         // Retornar a venda atualizada com informações relacionadas
         return AtualizarVenda
 

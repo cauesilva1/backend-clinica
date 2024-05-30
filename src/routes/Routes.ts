@@ -3,6 +3,7 @@ import { CriarCliente, buscarCliente, buscarAgenda, RealizarPagamento } from '..
 import { gerarProfissionais } from '../controllers/Profissional';
 import { gerarProcedimentos } from '../controllers/procedimentos';
 import { gerarAgendas } from '../controllers/gerarAgenda';
+import { gerarRelatorio, buscarRelatorioPorCpf } from '../controllers/Relatorio';
 export const router = express.Router();
 
 
@@ -11,8 +12,13 @@ router.get('/user', buscarCliente);
 
 router.get('/AgendaClient', buscarAgenda);
 
-// router.post('/createUser', CriarCliente);
+router.get('/Relatorio', gerarRelatorio);
 
+router.get('/RelatorioCpf', buscarRelatorioPorCpf);
+
+// -----------------------------------------------------------------------
+
+// router.post('/createUser', CriarCliente);
 
 router.post('/RealizarPagamento', RealizarPagamento);
 
